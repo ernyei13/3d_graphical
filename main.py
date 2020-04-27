@@ -27,7 +27,6 @@ def display():
             pygame.draw.line(screen, (0, 20, 100), diplaying[i][line[0]], diplaying[i][line[1]], 2)
 
 def main():
-    logging.info("Kezdodik")
     run = True
     screen.fill((100,180,180))
     t = 0
@@ -41,12 +40,12 @@ def main():
                     run = False
         screen.fill((10,190,200))
 
-        pressed_keys = pygame.key.get_pressed()
-        kam.move(pressed_keys)
-
         mouse_pos = pygame.mouse.get_pos()
         kam.rotate(mouse_pos)
         pygame.mouse.set_pos([300,300])
+
+        pressed_keys = pygame.key.get_pressed()
+        kam.move(pressed_keys)
 
 
 

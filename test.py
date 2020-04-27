@@ -8,11 +8,11 @@ from camera import *
 
 
 class test():
-    def __init__(self, size, points, lines):
+    def __init__(self, size, eltolas, points, lines):
         self.size = size
         self.points = points
         self.lines = lines
-        self.eltolas = vector([0,0,5])
+        self.eltolas = eltolas
         self.forgatas = matrix([[1, 0, 0],[0, 1, 0],[0, 0, 1]])
     def rotate(self, direction, degree):
         if direction == 0:

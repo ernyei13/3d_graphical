@@ -16,16 +16,31 @@ class camera():
         self.eltolas = vector([0,0,0])
         self.forgatas = matrix([[1, 0, 0],[0, 1, 0],[0, 0, 1]])
         self.mouse_pos = [0,0]
+        self.speed = 0.01
 
     def move(self, keys):
+        
+        
+
         if keys[pygame.K_w]:
-            self.eltolas.matrix[2][0] -= 0.1
+
+            self.eltolas.matrix[2][0] -= self.speed * self.forgatas.matrix[2][2]
+            self.eltolas.matrix[0][0] -= self.speed * self.forgatas.matrix[2][0]
+
         if keys[pygame.K_s]:
-            self.eltolas.matrix[2][0] += 0.1
+            self.eltolas.matrix[2][0] += self.speed * self.forgatas.matrix[2][2]
+            self.eltolas.matrix[0][0] += self.speed * self.forgatas.matrix[2][0]
+
         if keys[pygame.K_d]:
-            self.eltolas.matrix[0][0] += 0.1
+            self.eltolas.matrix[2][0] -= self.speed * -self.forgatas.matrix[2][0]
+            self.eltolas.matrix[0][0] -= self.speed * self.forgatas.matrix[2][2]
+
         if keys[pygame.K_a]:
-            self.eltolas.matrix[0][0] -= 0.1
+            self.eltolas.matrix[2][0] += self.speed * -self.forgatas.matrix[2][0]
+            self.eltolas.matrix[0][0] += self.speed * self.forgatas.matrix[2][2]
+
+
+
 
     def rotate(self, position):
         self.mouse_pos[0] -= position[0]-300
@@ -34,7 +49,7 @@ class camera():
 
         to_rotate = matrix([[1,0,0],[0, cos(radians(position[0])), -1 *sin(radians(position[0]))],[0, sin(radians(position[0])), cos(radians(position[0]))]])
         to_rotate *= matrix([[cos(radians(position[1])), 0, sin(radians(position[1]))],[0,1,0],[-1 * sin(radians(position[1])), 0, cos(radians(position[1]))]])
-
+        
         self.forgatas = to_rotate
 
 
