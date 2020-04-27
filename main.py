@@ -6,6 +6,7 @@ import logging
 from matrix import *
 from camera import *
 from test import *
+from objects import *
 
 
 logging.basicConfig(filename='kocka.log',level=logging.DEBUG)
@@ -16,52 +17,7 @@ screenheight = 600
 screen = pygame.display.set_mode((screenwidth, screenheight))
 
 
-
-
-
-
-
-
-
-
-def readin():
-    with open("data1.txt", "r") as data:
-        d = data.read().split()
-
-
 kam = camera(0.035) #meter
-
-
-cube = test( 10000,
-    [
-    vector([-1, -1, -1]),
-    vector([-1, -1,  1]),
-    vector([-1,  1, -1]),
-    vector([-1,  1,  1]),
-    vector([ 1, -1, -1]),
-    vector([ 1, -1,  1]),
-    vector([ 1,  1, -1]),
-    vector([ 1,  1,  1]),
-    ],
-    [[0, 1],
-    [1, 3],
-    [3, 2],
-    [2, 0],
-    [4, 5],
-    [5, 7],
-    [7, 6],
-    [6, 4],
-    [0, 4],
-    [1, 5],
-    [2, 6],
-    [3, 7],
-    ])
-
-
-
-
-objects = [cube]#, cube1]
-
 
 
 def display():
@@ -88,10 +44,12 @@ def main():
         pressed_keys = pygame.key.get_pressed()
         kam.move(pressed_keys)
 
-
         mouse_pos = pygame.mouse.get_pos()
         kam.rotate(mouse_pos)
         pygame.mouse.set_pos([300,300])
+
+
+
 
         display()
         t += 0.03
