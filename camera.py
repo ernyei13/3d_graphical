@@ -16,11 +16,9 @@ class camera():
         self.eltolas = vector([0,0,0])
         self.forgatas = matrix([[1, 0, 0],[0, 1, 0],[0, 0, 1]])
         self.mouse_pos = [0,0]
-        self.speed = 0.01
+        self.speed = 0.03
 
     def move(self, keys):
-        
-        
 
         if keys[pygame.K_w]:
 
