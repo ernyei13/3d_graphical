@@ -37,6 +37,11 @@ class camera():
             self.eltolas.matrix[2][0] += self.speed * -self.forgatas.matrix[2][0]
             self.eltolas.matrix[0][0] += self.speed * self.forgatas.matrix[2][2]
 
+        if keys[pygame.K_LSHIFT]:
+            self.eltolas.matrix[1][0] -= self.speed
+        if keys[pygame.K_SPACE]:
+            self.eltolas.matrix[1][0] += self.speed
+
 
 
 
@@ -57,13 +62,18 @@ class camera():
         objects_toDisplay =[]
         for obj in objects: 
             pontok = []
+            kifele = False
             for p in obj.updatePoints():
             #transforming space according to the relative position of the camera
                 relativeP = self.forgatas * (self.eltolas + p)
+                if relativeP.matrix[2][0] < self.focus:
+                    kifele = True
             #perspektivikus transzformacio
                 perspectiveP = self.perspektív *  relativeP
                 pontok = [*pontok, perspectiveP]
             onPlane = [[point.matrix[0][0]/point.matrix[2][0], point.matrix[1][0]/point.matrix[2][0]] for point in pontok]
             #scale to screen
+            if kifele:
+                continue
             objects_toDisplay.append([[middleOfScreen[0]+ meterToPixel * point[0], middleOfScreen[1]+ meterToPixel * point[1] ] for point in onPlane])
         return objects_toDisplay
