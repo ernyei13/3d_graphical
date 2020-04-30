@@ -56,10 +56,14 @@ class camera():
         self.forgatas = to_rotate
 
 
+    def collisionDetect(self):
+        pass #will be added
+
     def toDisplay(self, objects):
         middleOfScreen = [300,300]
         meterToPixel = 10000
         objects_toDisplay =[]
+        tav = []
         for obj in objects: 
             pontok = []
             kifele = False
@@ -71,9 +75,15 @@ class camera():
             #perspektivikus transzformacio
                 perspectiveP = self.perspektív *  relativeP
                 pontok = [*pontok, perspectiveP]
+
+            tavolsag = self.eltolas - obj.updatePoints()[0]
+ #sorrend tovolsag szerint
+            tav.append(sqrt(tavolsag.matrix[0][0]**2 + tavolsag.matrix[1][0]**2 + tavolsag.matrix[2][0]**2))
+
             onPlane = [[point.matrix[0][0]/point.matrix[2][0], point.matrix[1][0]/point.matrix[2][0]] for point in pontok]
             #scale to screen
             if kifele:
                 continue
             objects_toDisplay.append([[middleOfScreen[0]+ meterToPixel * point[0], middleOfScreen[1]+ meterToPixel * point[1] ] for point in onPlane])
-        return objects_toDisplay
+        sortedlist = [x for _, x in sorted(zip(tav, objects_toDisplay), reverse = True)]
+        return sortedlist #objects_toDisplay
